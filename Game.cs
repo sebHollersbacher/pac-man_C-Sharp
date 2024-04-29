@@ -6,28 +6,24 @@
         private GameField field;
         public void Start()
         {
-            Console.WriteLine("Start");
             player = new Player();
             field = new GameField();
-            field.Print();
         }
 
         public void Update()
         {
-            Console.Clear();
-            field.Print();
+            field.Redraw();
         }
 
         public void HandleKeyInput(ConsoleKey key)
         {
-            player.CurrentDirection = key switch
+            switch (key)
             {
-                ConsoleKey.W => Directions.UP,
-                ConsoleKey.A => Directions.LEFT,
-                ConsoleKey.S => Directions.DOWN,
-                ConsoleKey.D => Directions.RIGHT,
-            };
-
+                case ConsoleKey.W: player.CurrentDirection = Directions.UP; break;
+                case ConsoleKey.A: player.CurrentDirection = Directions.LEFT; break;
+                case ConsoleKey.S: player.CurrentDirection = Directions.DOWN; break;
+                case ConsoleKey.D: player.CurrentDirection = Directions.RIGHT; break;
+            }
         }
     }
 }
