@@ -2,7 +2,7 @@
 {
     internal class GameField
     {
-        public char[][] Field = {
+        private char[][] Field = {
             ['▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒'],
             ['▒','·','·','·','·','·','·','·','·','·','·','·','·','▒','▒','·','·','·','·','·','·','·','·','·','·','·','·','▒'],
             ['▒','·','▒','▒','▒','▒','·','▒','▒','▒','▒','▒','·','▒','▒','·','▒','▒','▒','▒','▒','·','▒','▒','▒','▒','·','▒'],
@@ -34,6 +34,32 @@
             ['▒','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','·','▒'],
             ['▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒']
         };
+
+        public int Width { get; }
+        public int Height { get; }
+
+
+        public GameField()
+        {
+            Width = Field.GetLength(0);
+            Height = Field[0].GetLength(0);
+        }
+
+        public void UpdatePlayerPos((int x, int y) newPos)
+        {
+            Console.SetCursorPosition(newPos.x, newPos.y);
+            Console.Write('O');
+            Console.SetCursorPosition(0, 0);
+        }
+
+        public bool ValidPosition((int x, int y) pos)
+        {
+            if (pos.x < 0 || Height <= pos.x) return false;
+            if (pos.y < 0 || Width <= pos.y) return false;
+
+            char c = Field[pos.y][pos.x];
+            return c is ' ' or '·';
+        }
 
         public void Redraw()
         {
