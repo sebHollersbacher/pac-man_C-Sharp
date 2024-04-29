@@ -25,6 +25,10 @@
                 case ConsoleKey.A: Player.UpdateDirection(Directions.LEFT); break;
                 case ConsoleKey.S: Player.UpdateDirection(Directions.DOWN); break;
                 case ConsoleKey.D: Player.UpdateDirection(Directions.RIGHT); break;
+                case ConsoleKey.UpArrow: Player.UpdateDirection(Directions.UP); break;
+                case ConsoleKey.LeftArrow: Player.UpdateDirection(Directions.LEFT); break;
+                case ConsoleKey.DownArrow: Player.UpdateDirection(Directions.DOWN); break;
+                case ConsoleKey.RightArrow: Player.UpdateDirection(Directions.RIGHT); break;
             }
         }
     }

@@ -8,6 +8,7 @@
         private (int x, int y) Pos = (1,1);
         private readonly Func<(int, int), bool> ValidatePosition;
         public Directions CurrentDirection { get; private set; }
+        private Directions NextDirection { get; set; }
 
         public Player(Func<(int, int), bool> validatePosition)
         {
@@ -16,8 +17,7 @@
 
         public void UpdateDirection(Directions directions)
         {
-            CurrentDirection = directions;
-            // TODO check if direction is valid
+            NextDirection = directions;
         }
 
         public (int,int) Update()
@@ -37,7 +37,23 @@
 
             if (ValidatePosition.Invoke(newPos)) Pos = newPos;
 
+            ChangeDirection();
+
             return Pos;
+        }
+
+        private void ChangeDirection()
+        {
+            (int x, int y) nextPos = Pos;
+            switch (NextDirection) 
+            { 
+                case Directions.UP: nextPos.x--; break;
+                case Directions.DOWN: nextPos.x++; break;
+                case Directions.LEFT: nextPos.y--; break;
+                case Directions.RIGHT: nextPos.y++; break;
+            }
+
+            if (ValidatePosition.Invoke(nextPos)) CurrentDirection = NextDirection;
         }
     }
 }

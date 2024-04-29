@@ -7,7 +7,7 @@ while (true)
     while (!Console.KeyAvailable)
     {
         game.Update();
-        Thread.Sleep(100);
+        Thread.Sleep(150);
     }
 
     ConsoleKey key = Console.ReadKey(true).Key;
