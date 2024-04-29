@@ -2,6 +2,9 @@
 {
     internal class GameField
     {
+        public int Width { get; }
+        public int Height { get; }
+
         private char[][] Field = {
             ['▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒'],
             ['▒','·','·','·','·','·','·','·','·','·','·','·','·','▒','▒','·','·','·','·','·','·','·','·','·','·','·','·','▒'],
@@ -35,19 +38,15 @@
             ['▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒','▒']
         };
 
-        public int Width { get; }
-        public int Height { get; }
-
-
         public GameField()
         {
-            Width = Field.GetLength(0);
-            Height = Field[0].GetLength(0);
+            Height = Field.GetLength(0);
+            Width = Field[0].GetLength(0);
         }
 
         public void UpdatePlayerPos((int x, int y) newPos)
         {
-            Console.SetCursorPosition(newPos.x, newPos.y);
+            Console.SetCursorPosition(newPos.y, newPos.x);
             Console.Write('O');
             Console.SetCursorPosition(0, 0);
         }
@@ -57,13 +56,13 @@
             if (pos.x < 0 || Height <= pos.x) return false;
             if (pos.y < 0 || Width <= pos.y) return false;
 
-            char c = Field[pos.y][pos.x];
+            char c = Field[pos.x][pos.y];
             return c is ' ' or '·';
         }
 
         public void Redraw()
         {
-            for (int i = 0; i < Field.GetLength(0); i++)
+            for (int i = 0; i < Height; i++)
             {
                 Console.SetCursorPosition(0, i);
                 Console.Write(Field[i]);

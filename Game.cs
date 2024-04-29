@@ -2,29 +2,29 @@
 {
     class Game
     {
-        private Player player;
-        private GameField field;
-        public void Start()
+        private Player Player;
+        private GameField Field;
+        public Game()
         {
-            field = new GameField();
-            player = new Player(field);
+            Field = new GameField();
+            Player = new Player(Field.ValidPosition);
         }
 
         public void Update()
         {
-            (int x,int y) newPos = player.Update();
-            field.Redraw();
-            field.UpdatePlayerPos(newPos);
+            (int x,int y) newPos = Player.Update();
+            Field.Redraw();
+            Field.UpdatePlayerPos(newPos);
         }
 
         public void HandleKeyInput(ConsoleKey key)
         {
             switch (key)
             {
-                case ConsoleKey.W: player.UpdateDirection(Directions.UP); break;
-                case ConsoleKey.A: player.UpdateDirection(Directions.LEFT); break;
-                case ConsoleKey.S: player.UpdateDirection(Directions.DOWN); break;
-                case ConsoleKey.D: player.UpdateDirection(Directions.RIGHT); break;
+                case ConsoleKey.W: Player.UpdateDirection(Directions.UP); break;
+                case ConsoleKey.A: Player.UpdateDirection(Directions.LEFT); break;
+                case ConsoleKey.S: Player.UpdateDirection(Directions.DOWN); break;
+                case ConsoleKey.D: Player.UpdateDirection(Directions.RIGHT); break;
             }
         }
     }

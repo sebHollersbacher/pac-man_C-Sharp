@@ -1,7 +1,6 @@
 ﻿using pac_man;
 
 Game game = new();
-game.Start();
 
 while (true)
 {
