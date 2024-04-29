@@ -4,6 +4,7 @@
     {
         private Player Player;
         private GameField Field;
+        private int Score = 0;
         public Game()
         {
             Field = new GameField();
@@ -13,8 +14,13 @@
         public void Update()
         {
             (int x,int y) newPos = Player.Update();
+            if (Field.ConsumeToken(newPos))
+            {
+                Score += 10;
+            }
             Field.Redraw();
             Field.UpdatePlayerPos(newPos);
+            PrintScore();
         }
 
         public void HandleKeyInput(ConsoleKey key)
@@ -30,6 +36,14 @@
                 case ConsoleKey.DownArrow: Player.UpdateDirection(Directions.DOWN); break;
                 case ConsoleKey.RightArrow: Player.UpdateDirection(Directions.RIGHT); break;
             }
+        }
+
+        private void PrintScore()
+        {
+            Console.SetCursorPosition(3, 1);
+            Console.Write("Score: ");
+            Console.Write(Score);
+            Console.SetCursorPosition(0, 3);
         }
     }
 }
