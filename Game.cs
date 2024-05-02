@@ -3,39 +3,34 @@
     class Game
     {
         private Player Player;
+        private Enemy Enemy;
         private GameField Field;
         private int Score = 0;
         public Game()
         {
             Field = new GameField();
             Player = new Player(Field.ValidPosition);
+            Enemy = new Enemy(Field.ValidPosition);
         }
 
         public void Update()
         {
-            (int x,int y) newPos = Player.Update();
-            if (Field.ConsumeToken(newPos))
+            (int x,int y) newPlayerPos = Player.Update();
+            if (Field.ConsumeToken(newPlayerPos))
             {
                 Score += 10;
             }
+
+            (int x, int y) newEnemyPos = Enemy.Update();
+
             Field.Redraw();
-            Field.UpdatePlayerPos(newPos);
+            Field.UpdateCharacterPos(newPlayerPos, 'O');
+            Field.UpdateCharacterPos(newEnemyPos, 'E');
             PrintScore();
         }
-
-        public void HandleKeyInput(ConsoleKey key)
-        {
-            switch (key)
-            {
-                case ConsoleKey.W: Player.UpdateDirection(Directions.UP); break;
-                case ConsoleKey.A: Player.UpdateDirection(Directions.LEFT); break;
-                case ConsoleKey.S: Player.UpdateDirection(Directions.DOWN); break;
-                case ConsoleKey.D: Player.UpdateDirection(Directions.RIGHT); break;
-                case ConsoleKey.UpArrow: Player.UpdateDirection(Directions.UP); break;
-                case ConsoleKey.LeftArrow: Player.UpdateDirection(Directions.LEFT); break;
-                case ConsoleKey.DownArrow: Player.UpdateDirection(Directions.DOWN); break;
-                case ConsoleKey.RightArrow: Player.UpdateDirection(Directions.RIGHT); break;
-            }
+        public void KeyPressed(ConsoleKey key)
+        { 
+            Player.HandleKeyInput(key);
         }
 
         private void PrintScore()

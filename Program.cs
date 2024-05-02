@@ -12,5 +12,5 @@ while (true)
 
     ConsoleKey key = Console.ReadKey(true).Key;
     if (key == ConsoleKey.Escape) return;
-    game.HandleKeyInput(key);
+    game.KeyPressed(key);
 }
